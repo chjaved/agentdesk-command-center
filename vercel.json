@@ -13,7 +13,7 @@
     },
     {
       "src": "/dashboard",
-      "dest": "/src/pages/dashboard.html"
+      "dest": "/index.html"
     },
     {
       "src": "/analytics",

@@ -1,72 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgentDesk - Command Center</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentDesk - Mission Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#690005",
+                      "text-muted": "#94A3B8",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-secondary-fixed": "#23005c",
+                      "secondary-fixed": "#e9ddff",
+                      "surface-dim": "#0e1322",
+                      "secondary": "#d0bcff",
+                      "primary-fixed": "#dbe1ff",
+                      "outline": "#8d90a0",
+                      "on-surface": "#dee1f7",
+                      "on-secondary": "#3c0091",
+                      "tertiary-fixed": "#ffdbcd",
+                      "inverse-on-surface": "#2b3040",
+                      "on-tertiary-fixed-variant": "#7d2d00",
+                      "on-surface-variant": "#c3c6d7",
+                      "surface-container-low": "#161b2b",
+                      "tertiary-container": "#bc4800",
+                      "surface-container-high": "#25293a",
+                      "surface-tint": "#b4c5ff",
+                      "on-primary-container": "#eeefff",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-container-highest": "#2f3445",
+                      "on-error-container": "#ffdad6",
+                      "warning": "#F59E0B",
+                      "error": "#ffb4ab",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "accent-lime": "#E4F222",
+                      "surface-container": "#1a1f2f",
+                      "tertiary-fixed-dim": "#ffb596",
+                      "success": "#10B981",
+                      "surface-container-lowest": "#090e1c",
+                      "background": "#0e1322",
+                      "surface": "#0e1322",
+                      "surface-bright": "#343948",
+                      "primary": "#b4c5ff",
+                      "on-primary": "#003063",
+                      "primary-container": "#00458d",
+                      "on-primary-container": "#dbe1ff",
+                      "secondary-container": "#5516be",
+                      "on-tertiary-container": "#3d0e00",
+                      "tertiary": "#ffb596",
+                      "on-tertiary": "#5e2f00",
+                      "outline-variant": "#3f4353",
+                      "scrim": "#000000",
+                      "shadow": "#000000",
+                      "inverse-surface": "#dee1f7",
+                      "inverse-primary": "#0059d4",
+                      "inverse-surface": "#dee1f7"
+              }
+            }
+          }
+        }
+      </script>
+<style>
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+      </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold mb-4">AgentDesk Command Center</h1>
-            <p class="text-gray-400 text-lg">Choose your dashboard view</p>
-        </header>
-        
-        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <a href="src/pages/dashboard.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                <div class="flex items-center mb-4">
-                    <span class="material-symbols-outlined text-3xl mr-3">dashboard</span>
-                    <h2 class="text-xl font-semibold">Main Dashboard</h2>
-                </div>
-                <p class="text-gray-400">Primary mission control interface</p>
-            </a>
-            
-            <a href="src/pages/analytics.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                <div class="flex items-center mb-4">
-                    <span class="material-symbols-outlined text-3xl mr-3">analytics</span>
-                    <h2 class="text-xl font-semibold">Analytics Dashboard</h2>
-                </div>
-                <p class="text-gray-400">Performance metrics and insights</p>
-            </a>
-            
-            <a href="src/pages/agent-detail.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                <div class="flex items-center mb-4">
-                    <span class="material-symbols-outlined text-3xl mr-3">person</span>
-                    <h2 class="text-xl font-semibold">Agent Detail View</h2>
-                </div>
-                <p class="text-gray-400">Individual agent management</p>
-            </a>
-            
-            <a href="src/pages/mobile.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                <div class="flex items-center mb-4">
-                    <span class="material-symbols-outlined text-3xl mr-3">smartphone</span>
-                    <h2 class="text-xl font-semibold">Mobile View</h2>
-                </div>
-                <p class="text-gray-400">Optimized mobile interface</p>
-            </a>
-            
-            <a href="src/pages/onboarding.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                <div class="flex items-center mb-4">
-                    <span class="material-symbols-outlined text-3xl mr-3">rocket_launch</span>
-                    <h2 class="text-xl font-semibold">Onboarding Flow</h2>
-                </div>
-                <p class="text-gray-400">New user setup experience</p>
-            </a>
-            
-            <a href="src/pages/dashboard-refined.html" class="block p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                <div class="flex items-center mb-4">
-                    <span class="material-symbols-outlined text-3xl mr-3">tune</span>
-                    <h2 class="text-xl font-semibold">Refined Dashboard</h2>
-                </div>
-                <p class="text-gray-400">Enhanced dashboard experience</p>
-            </a>
-        </main>
-    </div>
+<body class="bg-background text-on-surface">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-surface-container border-r border-outline-variant flex flex-col">
+<div class="p-4">
+<button class="w-full bg-primary text-on-primary px-4 py-2 rounded-lg flex items-center justify-center hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined mr-2">add</span>
+Deploy Agent
+</button>
+</div>
+<nav class="flex-1 px-4">
+<a href="/" class="flex items-center px-4 py-3 text-on-surface rounded-lg hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+Command
+</a>
+<a href="/agent-detail" class="flex items-center px-4 py-3 text-on-surface rounded-lg hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined mr-3">smart_toy</span>
+Agents
+</a>
+<a href="#" class="flex items-center px-4 py-3 text-on-surface rounded-lg hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined mr-3">chat</span>
+Conversations
+</a>
+<a href="#" class="flex items-center px-4 py-3 bg-surface-container-high text-primary rounded-lg mb-1">
+<span class="material-symbols-outlined mr-3">calendar_month</span>
+Bookings
+</a>
+<a href="/analytics" class="flex items-center px-4 py-3 text-on-surface rounded-lg hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined mr-3">analytics</span>
+Analytics
+</a>
+<a href="#" class="flex items-center px-4 py-3 text-on-surface rounded-lg hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined mr-3">settings</span>
+Settings
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<a href="#" class="flex items-center px-4 py-3 text-on-surface rounded-lg hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined mr-3">support_agent</span>
+Support
+</a>
+<a href="#" class="flex items-center px-4 py-3 text-on-surface rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined mr-3">account_circle</span>
+Account
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-auto">
+<div class="p-8">
+<div class="mb-8">
+<h1 class="text-3xl font-bold text-on-surface mb-2">Good morning, Javed</h1>
+<p class="text-text-muted">Here's what's happening with your agents today.</p>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-surface-container p-6 rounded-lg">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-2xl text-primary">smart_toy</span>
+<span class="text-sm text-success">+12%</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface mb-1">24</h3>
+<p class="text-text-muted">Active Agents</p>
+</div>
+<div class="bg-surface-container p-6 rounded-lg">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-2xl text-secondary">chat</span>
+<span class="text-sm text-success">+8%</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface mb-1">1,429</h3>
+<p class="text-text-muted">Msgs Handled (24H)</p>
+</div>
+<div class="bg-surface-container p-6 rounded-lg">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-2xl text-tertiary">calendar_month</span>
+<span class="text-sm text-warning">+3%</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface mb-1">89</h3>
+<p class="text-text-muted">Bookings (Week)</p>
+</div>
+<div class="bg-surface-container p-6 rounded-lg">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-2xl text-accent-lime">schedule</span>
+<span class="text-sm text-success">+15%</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface mb-1">142h</h3>
+<p class="text-text-muted">Time Saved (Month)</p>
+</div>
+</div>
+<!-- Deployed Agents Section -->
+<div class="bg-surface-container rounded-lg p-6">
+<h2 class="text-xl font-semibold text-on-surface mb-4">Deployed Agents</h2>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-primary">smart_toy</span>
+</div>
+<div>
+<h3 class="font-medium text-on-surface">WhatsApp Booking Agent</h3>
+<p class="text-sm text-text-muted">Handling appointment scheduling</p>
+</div>
+</div>
+<div class="flex items-center">
+<span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+<span class="text-sm text-success">Active</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+<div class="flex items-center">
+<div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-secondary">campaign</span>
+</div>
+<div>
+<h3 class="font-medium text-on-surface">Lead Gen Agent</h3>
+<p class="text-sm text-text-muted">Qualifying incoming leads</p>
+</div>
+</div>
+<div class="flex items-center">
+<span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+<span class="text-sm text-success">Active</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Activity -->
+<div class="mt-8">
+<h2 class="text-xl font-semibold text-on-surface mb-4">Live Activity</h2>
+<div class="bg-surface-container rounded-lg p-6">
+<div class="space-y-3">
+<div class="flex items-center text-sm">
+<span class="material-symbols-outlined text-success mr-2">check_circle</span>
+<span class="text-text-muted">New booking confirmed - John Smith</span>
+<span class="text-text-muted ml-auto">2m ago</span>
+</div>
+<div class="flex items-center text-sm">
+<span class="material-symbols-outlined text-primary mr-2">chat</span>
+<span class="text-text-muted">WhatsApp agent responded to 5 queries</span>
+<span class="text-text-muted ml-auto">5m ago</span>
+</div>
+<div class="flex items-center text-sm">
+<span class="material-symbols-outlined text-tertiary mr-2">person_add</span>
+<span class="text-text-muted">Lead gen agent qualified 3 new leads</span>
+<span class="text-text-muted ml-auto">12m ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
 </body>
 </html>
