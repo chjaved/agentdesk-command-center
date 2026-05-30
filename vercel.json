@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/src/pages/dashboard.html"
+    },
+    {
+      "src": "/analytics",
+      "dest": "/src/pages/analytics.html"
+    },
+    {
+      "src": "/agent-detail",
+      "dest": "/src/pages/agent-detail.html"
+    },
+    {
+      "src": "/mobile",
+      "dest": "/src/pages/mobile.html"
+    },
+    {
+      "src": "/onboarding",
+      "dest": "/src/pages/onboarding.html"
+    },
+    {
+      "src": "/dashboard-refined",
+      "dest": "/src/pages/dashboard-refined.html"
+    },
+    {
+      "src": "/src/pages/(.*)",
+      "dest": "/src/pages/$1"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+}

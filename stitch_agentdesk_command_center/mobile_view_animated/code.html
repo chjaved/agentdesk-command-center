@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>AgentDesk Mobile</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS Setup -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#690005",
+                    "text-muted": "#94A3B8",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed": "#23005c",
+                    "secondary-fixed": "#e9ddff",
+                    "surface-dim": "#0e1322",
+                    "secondary": "#d0bcff",
+                    "primary-fixed": "#dbe1ff",
+                    "outline": "#8d90a0",
+                    "on-surface": "#dee1f7",
+                    "on-secondary": "#3c0091",
+                    "tertiary-fixed": "#ffdbcd",
+                    "inverse-on-surface": "#2b3040",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "on-surface-variant": "#c3c6d7",
+                    "surface-container-low": "#161b2b",
+                    "tertiary-container": "#bc4800",
+                    "surface-container-high": "#25293a",
+                    "surface-tint": "#b4c5ff",
+                    "on-primary-container": "#eeefff",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-container-highest": "#2f3445",
+                    "on-error-container": "#ffdad6",
+                    "warning": "#F59E0B",
+                    "error": "#ffb4ab",
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "accent-lime": "#E4F222",
+                    "surface-container": "#1a1f2f",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "success": "#10B981",
+                    "surface-container-lowest": "#090e1c",
+                    "background": "#0e1322",
+                    "primary-container": "#2563eb",
+                    "surface": "#111827",
+                    "text-primary": "#F8FAFC",
+                    "inverse-surface": "#dee1f7",
+                    "on-primary-fixed": "#00174b",
+                    "tertiary": "#ffb596",
+                    "on-primary": "#002a78",
+                    "outline-variant": "#434655",
+                    "secondary-container": "#571bc1",
+                    "on-tertiary-fixed": "#360f00",
+                    "primary": "#b4c5ff",
+                    "on-tertiary": "#581e00",
+                    "on-background": "#dee1f7",
+                    "surface-variant": "#2f3445",
+                    "on-tertiary-container": "#ffede6",
+                    "inverse-primary": "#0053db",
+                    "surface-bright": "#343949",
+                    "on-secondary-container": "#c4abff",
+                    "border": "#1E293B"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "panel-padding": "20px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "stack-gap": "8px",
+                    "margin-desktop": "32px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "label-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "label-mono": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap');
+        
+        /* Hide scrollbar for cleaner mobile look but allow scrolling */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes swipe-hint {
+            0%, 100% { transform: translateX(0); }
+            15% { transform: translateX(-16px); }
+            30% { transform: translateX(0); }
+        }
+        .animate-swipe-hint {
+            animation: swipe-hint 4s ease-in-out infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-text-primary font-body-md antialiased h-screen w-full overflow-hidden flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center h-16 px-margin-mobile w-full z-50 bg-surface-container/90 dark:bg-surface-container/90 backdrop-blur-md docked full-width top-0 sticky shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)]">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary tracking-tight">AgentDesk</div>
+<div class="flex items-center gap-4">
+<button class="relative hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container"></span>
+</button>
+<button class="hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+</button>
+<button class="hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto scroll-smooth pb-[100px]">
+<!-- Stats Grid Bento -->
+<section class="px-margin-mobile mt-6">
+<div class="grid grid-cols-2 gap-stack-gap">
+<!-- Stat 1 -->
+<div class="bg-surface border border-border rounded-xl p-4 flex flex-col justify-between relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -z-10"></div>
+<span class="font-label-mono text-label-mono text-text-muted flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-success"></div>
+                        ACTIVE
+                    </span>
+<div class="font-display-lg text-display-lg text-text-primary mt-1">3</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface border border-border rounded-xl p-4 flex flex-col justify-between hover:border-primary/50 transition-colors">
+<span class="font-label-mono text-label-mono text-text-muted">MESSAGES</span>
+<div class="font-display-lg text-display-lg text-text-primary mt-1">1.2<span class="text-headline-sm text-text-muted">k</span></div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface border border-border rounded-xl p-4 flex flex-col justify-between hover:border-primary/50 transition-colors">
+<span class="font-label-mono text-label-mono text-text-muted">BOOKINGS</span>
+<div class="font-display-lg text-display-lg text-text-primary mt-1">12</div>
+</div>
+<!-- Stat 4 -->
+<div class="bg-surface border border-border rounded-xl p-4 flex flex-col justify-between relative overflow-hidden hover:border-primary/50 transition-colors">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent -z-10"></div>
+<span class="font-label-mono text-label-mono text-primary">SAVED</span>
+<div class="font-display-lg text-display-lg text-primary mt-1">47<span class="text-headline-sm">h</span></div>
+</div>
+</div>
+</section>
+<!-- Agent Roster Stack -->
+<section class="px-margin-mobile mt-8 mb-8">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Live Agents</h2>
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">swipe_left</span> Swipe options
+                </span>
+</div>
+<div class="flex flex-col gap-stack-gap">
+<!-- Agent Card 1 -->
+<div class="bg-surface border border-border rounded-xl p-4 flex items-center justify-between relative overflow-hidden active:scale-[0.98] transition-transform animate-swipe-hint">
+<div class="flex items-center gap-3">
+<div class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-success"></span>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-bold text-text-primary">Sales Outreach</h3>
+<p class="font-body-sm text-body-sm text-text-muted font-label-mono mt-0.5">Processing 142 leads...</p>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center opacity-50">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</div>
+</div>
+</div>
+<!-- Agent Card 2 -->
+<div class="bg-surface border border-border rounded-xl p-4 flex items-center justify-between relative overflow-hidden active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-3">
+<div class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-success"></span>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-bold text-text-primary">Support Bot 01</h3>
+<p class="font-body-sm text-body-sm text-text-muted font-label-mono mt-0.5">Handling 3 tickets</p>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center opacity-50">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</div>
+</div>
+</div>
+<!-- Agent Card 3 (Idle) -->
+<div class="bg-surface border border-border rounded-xl p-4 flex items-center justify-between relative overflow-hidden opacity-75 active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-3">
+<div class="relative flex h-3 w-3">
+<span class="relative inline-flex rounded-full h-3 w-3 bg-text-muted"></span>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-bold text-text-primary">Data Scraper</h3>
+<p class="font-body-sm text-body-sm text-text-muted font-label-mono mt-0.5">Idle - Schedule met</p>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-bright flex items-center justify-center opacity-50">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-[88px] right-margin-mobile w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-[0_4px_12px_rgba(37,99,235,0.4)] active:scale-95 transition-transform z-40 animate-bounce">
+<span class="material-symbols-outlined text-on-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<!-- BottomNavBar (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface-container-highest dark:bg-surface-container-highest shadow-[0_-8px_32px_rgba(0,0,0,0.4)] z-50 lg:hidden pb-safe">
+<!-- Active: Home -->
+<button class="flex flex-col items-center justify-center text-primary bg-primary/20 rounded-xl px-4 py-1.5 scale-105 transition-transform duration-150 shadow-inner">
+<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest font-bold">Home</span>
+</button>
+<!-- Inactive: Agents -->
+<button class="flex flex-col items-center justify-center text-text-muted active:bg-surface-bright transition-colors rounded-xl px-4 py-1.5">
+<span class="material-symbols-outlined mb-1 text-[24px]">smart_toy</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest font-bold">Agents</span>
+</button>
+<!-- Inactive: Stats -->
+<button class="flex flex-col items-center justify-center text-text-muted active:bg-surface-bright transition-colors rounded-xl px-4 py-1.5">
+<span class="material-symbols-outlined mb-1 text-[24px]">analytics</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest font-bold">Stats</span>
+</button>
+<!-- Inactive: Alerts -->
+<button class="flex flex-col items-center justify-center text-text-muted active:bg-surface-bright transition-colors rounded-xl px-4 py-1.5">
+<span class="material-symbols-outlined mb-1 text-[24px]">notifications</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest font-bold">Alerts</span>
+</button>
+</nav>
+<!-- Safe area padding for newer iPhones -->
+<style>
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+    </style>
+</body></html>

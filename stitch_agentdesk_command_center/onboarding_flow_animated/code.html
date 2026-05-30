@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentDesk - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#690005",
+                      "text-muted": "#94A3B8",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-secondary-fixed": "#23005c",
+                      "secondary-fixed": "#e9ddff",
+                      "surface-dim": "#0e1322",
+                      "secondary": "#d0bcff",
+                      "primary-fixed": "#dbe1ff",
+                      "outline": "#8d90a0",
+                      "on-surface": "#dee1f7",
+                      "on-secondary": "#3c0091",
+                      "tertiary-fixed": "#ffdbcd",
+                      "inverse-on-surface": "#2b3040",
+                      "on-tertiary-fixed-variant": "#7d2d00",
+                      "on-surface-variant": "#c3c6d7",
+                      "surface-container-low": "#161b2b",
+                      "tertiary-container": "#bc4800",
+                      "surface-container-high": "#25293a",
+                      "surface-tint": "#b4c5ff",
+                      "on-primary-container": "#eeefff",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-container-highest": "#2f3445",
+                      "on-error-container": "#ffdad6",
+                      "warning": "#F59E0B",
+                      "error": "#ffb4ab",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "accent-lime": "#E4F222",
+                      "surface-container": "#1a1f2f",
+                      "tertiary-fixed-dim": "#ffb596",
+                      "success": "#10B981",
+                      "surface-container-lowest": "#090e1c",
+                      "background": "#0e1322",
+                      "primary-container": "#2563eb",
+                      "surface": "#111827",
+                      "text-primary": "#F8FAFC",
+                      "inverse-surface": "#dee1f7",
+                      "on-primary-fixed": "#00174b",
+                      "tertiary": "#ffb596",
+                      "on-primary": "#002a78",
+                      "outline-variant": "#434655",
+                      "secondary-container": "#571bc1",
+                      "on-tertiary-fixed": "#360f00",
+                      "primary": "#b4c5ff",
+                      "on-tertiary": "#581e00",
+                      "on-background": "#dee1f7",
+                      "surface-variant": "#2f3445",
+                      "on-tertiary-container": "#ffede6",
+                      "inverse-primary": "#0053db",
+                      "surface-bright": "#343949",
+                      "on-secondary-container": "#c4abff",
+                      "border": "#1E293B"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "panel-padding": "20px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "stack-gap": "8px",
+                      "margin-desktop": "32px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "label-mono": ["JetBrains Mono"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(180, 197, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(180, 197, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(180, 197, 255, 0); }
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #b4c5ff;
+            top: -10px;
+            opacity: 0;
+            animation: fall 3s linear forwards;
+        }
+        @keyframes fall {
+            0% { top: -10px; opacity: 1; transform: translateX(0) rotate(0deg); }
+            100% { top: 100vh; opacity: 0; transform: translateX(100px) rotate(360deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-center font-body-md overflow-x-hidden selection:bg-primary-container selection:text-text-primary">
+<!-- TopNav Suppressed for Linear Flow (Intent: Onboarding) -->
+<!-- SideNav/BottomNav Suppressed for Linear Flow -->
+<main class="w-full max-w-3xl px-gutter md:px-margin-desktop py-12 flex flex-col items-center z-10 relative">
+<!-- Header -->
+<div class="text-center mb-12">
+<h1 class="font-headline-md text-headline-md text-primary mb-2">AgentDesk</h1>
+<p class="font-body-lg text-body-lg text-text-muted">Set up your mission control</p>
+</div>
+<!-- Progress Steps -->
+<div class="w-full max-w-md flex items-center justify-between mb-12 relative">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[2px] bg-surface-container -z-10"></div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1/2 h-[2px] bg-primary -z-10 transition-all duration-500" id="progress-bar"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-stack-gap step-indicator cursor-pointer" onclick="goToStep(1)">
+<div class="w-8 h-8 rounded-full bg-primary text-surface-lowest flex items-center justify-center font-label-mono text-label-mono border-2 border-primary transition-colors" id="indicator-1">1</div>
+<span class="font-label-caps text-label-caps text-primary">CONNECT</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-stack-gap step-indicator cursor-pointer" onclick="goToStep(2)">
+<div class="w-8 h-8 rounded-full bg-surface-container text-text-muted flex items-center justify-center font-label-mono text-label-mono border-2 border-surface-container transition-colors" id="indicator-2">2</div>
+<span class="font-label-caps text-label-caps text-text-muted transition-colors" id="label-2">INDUSTRY</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-stack-gap step-indicator cursor-pointer" onclick="goToStep(3)">
+<div class="w-8 h-8 rounded-full bg-surface-container text-text-muted flex items-center justify-center font-label-mono text-label-mono border-2 border-surface-container transition-colors" id="indicator-3">3</div>
+<span class="font-label-caps text-label-caps text-text-muted transition-colors" id="label-3">DEPLOY</span>
+</div>
+</div>
+<!-- Canvas Area -->
+<div class="w-full bg-surface/50 backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl p-panel-padding md:p-8 relative overflow-hidden">
+<!-- STEP 1: Connect WhatsApp -->
+<div class="step-content flex flex-col items-center text-center animate-fade-in block" id="step-1">
+<h2 class="font-headline-sm text-headline-sm text-text-primary mb-2">Connect WhatsApp</h2>
+<p class="font-body-sm text-body-sm text-text-muted mb-8">Scan the QR code to link your business account.</p>
+<div class="relative mb-6">
+<div class="w-48 h-48 bg-white p-2 rounded-lg pulse-ring flex items-center justify-center relative z-10">
+<!-- Placeholder QR Code -->
+<img alt="QR Code" class="w-full h-full" data-alt="A stark, high-contrast black and white square QR code centered perfectly on a pristine white background. The composition is entirely flat, emphasizing functional digital design over atmospheric depth. The aesthetic is strictly utilitarian and technical, designed for immediate visual recognition by software. Lighting is uniform, ensuring crisp, sharp edges for every geometric block within the code." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe_GDxEz1jomD-HfDNRfqXF_SGxccmZVZ9yvNNZcpAO_BrSSEWSTSZ8v0gahyfJngSi_gYIL13ntos8DnY1TaSmmdSvHqpXLGLuHllQbHO_WsvdGL7tWfBYkCV1cTe1bbAeQYEOyDUhlTyEcqbuxZheuHlO-FypMFqxsZXdWqrGmAEJdtSYXWb95qKs-OcF3fv4a1v585Ew9AatlHBRbN1QY_Wrz5-CNM-eXS_hSVdxrg9JUox8j87Wc7XWBOufsDygARkT8XlghI"/>
+</div>
+</div>
+<div class="flex items-center gap-2 text-primary font-body-sm text-body-sm mb-6 animate-pulse">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Waiting for scan...
+                </div>
+<button class="font-body-sm text-body-sm text-text-muted hover:text-primary transition-colors underline decoration-border hover:decoration-primary">
+                    Enter manually instead
+                </button>
+</div>
+<!-- STEP 2: Choose Business Type -->
+<div class="step-content hidden flex-col items-center animate-fade-in w-full" id="step-2">
+<h2 class="font-headline-sm text-headline-sm text-text-primary mb-2">Select Industry</h2>
+<p class="font-body-sm text-body-sm text-text-muted mb-8 text-center">We'll tailor your agent's knowledge base.</p>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-gutter w-full mb-8">
+<!-- Cards -->
+<button class="industry-card relative flex flex-col items-center justify-center p-6 border border-border rounded-xl bg-surface-container-low hover:bg-surface-container hover:-translate-y-1 hover:shadow-lg hover:border-primary/50 transition-all duration-300 group" onclick="selectIndustry(this)">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors mb-3" data-icon="restaurant" style="font-size: 32px;">restaurant</span>
+<span class="font-body-md text-body-md text-text-primary">Restaurant</span>
+<span class="material-symbols-outlined absolute top-2 right-2 text-primary opacity-0 check-icon text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+</button>
+<button class="industry-card relative flex flex-col items-center justify-center p-6 border border-border rounded-xl bg-surface-container-low hover:bg-surface-container hover:-translate-y-1 hover:shadow-lg hover:border-primary/50 transition-all duration-300 group" onclick="selectIndustry(this)">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors mb-3" data-icon="hvac" style="font-size: 32px;">hvac</span>
+<span class="font-body-md text-body-md text-text-primary">HVAC</span>
+<span class="material-symbols-outlined absolute top-2 right-2 text-primary opacity-0 check-icon text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+</button>
+<button class="industry-card relative flex flex-col items-center justify-center p-6 border border-border rounded-xl bg-surface-container-low hover:bg-surface-container hover:-translate-y-1 hover:shadow-lg hover:border-primary/50 transition-all duration-300 group" onclick="selectIndustry(this)">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors mb-3" data-icon="spa" style="font-size: 32px;">spa</span>
+<span class="font-body-md text-body-md text-text-primary">Beauty</span>
+<span class="material-symbols-outlined absolute top-2 right-2 text-primary opacity-0 check-icon text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+</button>
+<button class="industry-card relative flex flex-col items-center justify-center p-6 border border-border rounded-xl bg-surface-container-low hover:bg-surface-container hover:-translate-y-1 hover:shadow-lg hover:border-primary/50 transition-all duration-300 group" onclick="selectIndustry(this)">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors mb-3" data-icon="real_estate_agent" style="font-size: 32px;">real_estate_agent</span>
+<span class="font-body-md text-body-md text-text-primary">Real Estate</span>
+<span class="material-symbols-outlined absolute top-2 right-2 text-primary opacity-0 check-icon text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+</button>
+<button class="industry-card relative flex flex-col items-center justify-center p-6 border border-border rounded-xl bg-surface-container-low hover:bg-surface-container hover:-translate-y-1 hover:shadow-lg hover:border-primary/50 transition-all duration-300 group" onclick="selectIndustry(this)">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors mb-3" data-icon="storefront" style="font-size: 32px;">storefront</span>
+<span class="font-body-md text-body-md text-text-primary">Retail</span>
+<span class="material-symbols-outlined absolute top-2 right-2 text-primary opacity-0 check-icon text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+</button>
+<button class="industry-card relative flex flex-col items-center justify-center p-6 border border-border rounded-xl bg-surface-container-low hover:bg-surface-container hover:-translate-y-1 hover:shadow-lg hover:border-primary/50 transition-all duration-300 group" onclick="selectIndustry(this)">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors mb-3" data-icon="health_and_safety" style="font-size: 32px;">health_and_safety</span>
+<span class="font-body-md text-body-md text-text-primary">Healthcare</span>
+<span class="material-symbols-outlined absolute top-2 right-2 text-primary opacity-0 check-icon text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+</button>
+</div>
+<div class="w-full flex justify-end">
+<button class="bg-primary-container text-text-primary font-body-md text-body-md px-6 py-2 rounded-lg hover:bg-inverse-primary transition-colors font-medium" onclick="goToStep(3)">Continue</button>
+</div>
+</div>
+<!-- STEP 3: Deploy -->
+<div class="step-content hidden flex-col items-center w-full py-8" id="step-3">
+<h2 class="font-headline-sm text-headline-sm text-text-primary mb-8 text-center">Deploying Agent</h2>
+<div class="w-full max-w-sm flex flex-col gap-4 font-label-mono text-label-mono mb-12">
+<div class="flex items-center gap-3 text-success opacity-0" style="animation: fadeIn 0.5s 0.5s forwards;">
+<span class="material-symbols-outlined text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+<span>Connecting to WhatsApp...</span>
+</div>
+<div class="flex items-center gap-3 text-success opacity-0" style="animation: fadeIn 0.5s 1.5s forwards;">
+<span class="material-symbols-outlined text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+<span>Loading Knowledge Base...</span>
+</div>
+<div class="flex items-center gap-3 text-success opacity-0" style="animation: fadeIn 0.5s 2.5s forwards;">
+<span class="material-symbols-outlined text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+<span>Configuring Workflows...</span>
+</div>
+<div class="flex items-center gap-3 text-primary opacity-0" style="animation: fadeIn 0.5s 3.5s forwards;">
+<span class="material-symbols-outlined text-[18px] animate-pulse" data-icon="arrow_forward" data-weight="fill">arrow_forward</span>
+<span>Going live...</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-headline-sm text-headline-sm px-8 py-3 rounded-xl hover:bg-primary-fixed-dim transition-colors font-semibold shadow-[0_0_15px_rgba(180,197,255,0.3)] opacity-0" onclick="triggerConfetti()" style="animation: slideUpFade 0.5s 4.5s forwards;">
+                    View Your Agent Dashboard
+                 </button>
+</div>
+</div>
+</main>
+<div class="fixed inset-0 pointer-events-none z-50 overflow-hidden hidden" id="confetti-container"></div>
+<script>
+        function goToStep(step) {
+            // Hide all
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            });
+            
+            // Show target
+            const target = document.getElementById(`step-${step}`);
+            target.classList.remove('hidden');
+            target.classList.add('flex');
+
+            // Update Progress Bar
+            const bar = document.getElementById('progress-bar');
+            if(step === 1) bar.style.width = '0%';
+            if(step === 2) bar.style.width = '50%';
+            if(step === 3) bar.style.width = '100%';
+
+            // Update Indicators
+            for(let i=1; i<=3; i++) {
+                const ind = document.getElementById(`indicator-${i}`);
+                const lbl = document.getElementById(`label-${i}`);
+                
+                if(i <= step) {
+                    ind.className = "w-8 h-8 rounded-full bg-primary text-surface-lowest flex items-center justify-center font-label-mono text-label-mono border-2 border-primary transition-colors";
+                    if(lbl) lbl.classList.replace('text-text-muted', 'text-primary');
+                } else {
+                    ind.className = "w-8 h-8 rounded-full bg-surface-container text-text-muted flex items-center justify-center font-label-mono text-label-mono border-2 border-surface-container transition-colors";
+                    if(lbl) lbl.classList.replace('text-primary', 'text-text-muted');
+                }
+            }
+        }
+
+        function selectIndustry(element) {
+            // Reset all
+            document.querySelectorAll('.industry-card').forEach(el => {
+                el.classList.remove('border-primary', 'bg-surface-container');
+                el.classList.add('border-border', 'bg-surface-container-low');
+                el.querySelector('.check-icon').classList.add('opacity-0');
+            });
+            
+            // Set active
+            element.classList.remove('border-border', 'bg-surface-container-low');
+            element.classList.add('border-primary', 'bg-surface-container');
+            element.querySelector('.check-icon').classList.remove('opacity-0');
+        }
+
+        function triggerConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.classList.remove('hidden');
+            container.innerHTML = '';
+            
+            const colors = ['#b4c5ff', '#10B981', '#d0bcff', '#E4F222'];
+            
+            for(let i=0; i<50; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti-piece';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDelay = Math.random() * 2 + 's';
+                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(conf);
+            }
+            
+            setTimeout(() => {
+                container.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body></html>

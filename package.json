@@ -1,0 +1,25 @@
+{
+  "name": "agentdesk-command-center",
+  "version": "1.0.0",
+  "description": "AgentDesk Command Center - Multi-dashboard interface",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'Static site - no build step required'",
+    "dev": "serve . -l 3000"
+  },
+  "keywords": [
+    "dashboard",
+    "agentdesk",
+    "analytics",
+    "command-center"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

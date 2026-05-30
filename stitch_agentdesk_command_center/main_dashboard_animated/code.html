@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentDesk - Mission Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#690005",
+                      "text-muted": "#94A3B8",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-secondary-fixed": "#23005c",
+                      "secondary-fixed": "#e9ddff",
+                      "surface-dim": "#0e1322",
+                      "secondary": "#d0bcff",
+                      "primary-fixed": "#dbe1ff",
+                      "outline": "#8d90a0",
+                      "on-surface": "#dee1f7",
+                      "on-secondary": "#3c0091",
+                      "tertiary-fixed": "#ffdbcd",
+                      "inverse-on-surface": "#2b3040",
+                      "on-tertiary-fixed-variant": "#7d2d00",
+                      "on-surface-variant": "#c3c6d7",
+                      "surface-container-low": "#161b2b",
+                      "tertiary-container": "#bc4800",
+                      "surface-container-high": "#25293a",
+                      "surface-tint": "#b4c5ff",
+                      "on-primary-container": "#eeefff",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-container-highest": "#2f3445",
+                      "on-error-container": "#ffdad6",
+                      "warning": "#F59E0B",
+                      "error": "#ffb4ab",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "accent-lime": "#E4F222",
+                      "surface-container": "#1a1f2f",
+                      "tertiary-fixed-dim": "#ffb596",
+                      "success": "#10B981",
+                      "surface-container-lowest": "#090e1c",
+                      "background": "#0e1322",
+                      "primary-container": "#2563eb",
+                      "surface": "#111827",
+                      "text-primary": "#F8FAFC",
+                      "inverse-surface": "#dee1f7",
+                      "on-primary-fixed": "#00174b",
+                      "tertiary": "#ffb596",
+                      "on-primary": "#002a78",
+                      "outline-variant": "#434655",
+                      "secondary-container": "#571bc1",
+                      "on-tertiary-fixed": "#360f00",
+                      "primary": "#b4c5ff",
+                      "on-tertiary": "#581e00",
+                      "on-background": "#dee1f7",
+                      "surface-variant": "#2f3445",
+                      "on-tertiary-container": "#ffede6",
+                      "inverse-primary": "#0053db",
+                      "surface-bright": "#343949",
+                      "on-secondary-container": "#c4abff",
+                      "border": "#1E293B"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "panel-padding": "20px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "stack-gap": "8px",
+                      "margin-desktop": "32px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "label-mono": ["JetBrains Mono"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.text-primary'); }
+        
+        /* Subtle glow for agent pulses */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        .agent-pulse {
+            position: relative;
+        }
+        .agent-pulse::before {
+            content: '';
+            position: absolute;
+            left: -4px; top: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%;
+            background-color: theme('colors.success');
+            opacity: 0.5;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            z-index: -1;
+        }
+
+        /* Glassmorphism utilities with lift effect */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid theme('colors.border');
+            transition: all 0.3s ease;
+        }
+        
+        .glass-panel:hover {
+            border-color: theme('colors.primary/40');
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -8px theme('colors.primary/20');
+        }
+
+        /* Slide-in animation for activity feed */
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .slide-in-item {
+            animation: slide-in 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .slide-in-item:nth-child(1) { animation-delay: 0.1s; }
+        .slide-in-item:nth-child(2) { animation-delay: 0.2s; }
+        .slide-in-item:nth-child(3) { animation-delay: 0.3s; }
+        .slide-in-item:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: theme('colors.surface-variant'); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.outline'); }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased selection:bg-primary-container selection:text-text-primary">
+<!-- Desktop SideNavBar -->
+<nav class="hidden md:flex flex-col h-full w-[260px] bg-surface-container-lowest border-r border-border py-panel-padding shrink-0 z-40">
+<!-- Header -->
+<div class="px-panel-padding mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container font-bold shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                AD
+            </div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AgentDesk</h1>
+<p class="font-label-mono text-label-mono text-text-muted opacity-80">Mission Control</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-panel-padding mb-6">
+<button class="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-body-md text-body-md py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+                Deploy Agent
+            </button>
+</div>
+<!-- Main Nav -->
+<div class="flex-1 overflow-y-auto px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-low text-primary font-bold border-r-2 border-primary transition-all active:scale-[0.98] group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Command
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted font-body-md hover:bg-surface-container-low hover:text-text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">smart_toy</span>
+                Agents
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted font-body-md hover:bg-surface-container-low hover:text-text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">forum</span>
+                Conversations
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted font-body-md hover:bg-surface-container-low hover:text-text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">calendar_month</span>
+                Bookings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted font-body-md hover:bg-surface-container-low hover:text-text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">query_stats</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-muted font-body-md hover:bg-surface-container-low hover:text-text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
+                Settings
+            </a>
+</div>
+<!-- Footer Nav & User -->
+<div class="px-4 mt-auto pt-4 border-t border-border/50 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted font-body-md hover:bg-surface-container-low hover:text-text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">help_outline</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted font-body-md hover:bg-surface-container-low hover:text-text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">manage_accounts</span>
+                Account
+            </a>
+<div class="mt-4 px-3 py-2 flex items-center gap-3">
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-border" data-alt="A small, professional headshot of a user avatar, displaying a neat and friendly appearance against a neutral background. The lighting is balanced and clean, fitting a premium SaaS application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcyCXGKGFsqL4xgJC8vXCarp4Vq0NSqFPTwkt_yoCysRS7aK7oeK4b-XZ3zIhWrCSq0IwDTSlg7ORfPfareXami9FGqJSpbbL3wb_jxOkp-_ypOTXRGAc9MWuZcc2LUSN7DFd4tQQAOiCJSo7fzeftKlK8xF7KrGqQqh3fJ_Ili3o0GAgp3OgndqfR6fFqiyZwIko4BtekBybvNQGYUnnHmacav15Fjzy6_t5soZ_RN3A57iKChN1Dr_cAJ-m-q-7zjk4kRSQWkaQ"/>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-body-sm text-text-primary truncate">Javed</p>
+<p class="font-label-mono text-label-mono text-text-muted truncate">Admin</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-w-0 bg-background relative">
+<!-- TopNavBar (Mobile only in this layout context, but fulfilling requirement) -->
+<header class="flex md:hidden justify-between items-center h-16 px-margin-mobile w-full z-50 bg-surface-container/90 backdrop-blur-md border-b border-border sticky top-0">
+<div class="font-headline-md text-headline-md font-bold text-primary">AgentDesk</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGDwRHM29M8pOGFcuPkD0iWzDja3BAbTgI1FSWFiUwA7enZ_rmvr99glEhzvP1KBakxEuJPeHrl8F8qClwBDRedZLkDhbKoJGQQvc8umbbiP1jHI70meCX0YR-NyRkfrYJOboHlGXDODSenn91ZkXQ1KE_AJhX2VPhRWGXI4XiBOM3WlH2p3v-5rp54zy7Be9UGQKBxBczCv-IjjDVZxc7CdJNF0S0ZPvrU50wukGkz0gxHs3EuZUx3y49wO73cuXNz1d1ADvCO4o"/>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop py-8">
+<!-- Hero / Header Row -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+<div>
+<h2 class="font-display-lg text-display-lg text-text-primary tracking-tight">Good morning, Javed</h2>
+<p class="font-label-mono text-label-mono text-text-muted mt-2 uppercase tracking-wider" id="live-datetime">Wed, Oct 25 • 09:41 AM</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex relative p-2 rounded-full border border-border text-text-muted hover:text-primary hover:border-primary/50 transition-all bg-surface-container-lowest">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-4 h-4 bg-primary text-on-primary rounded-full font-label-caps text-[9px] flex items-center justify-center font-bold">3</span>
+</button>
+<button class="hidden md:flex bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-body-md text-body-md py-2 px-4 rounded-lg items-center gap-2 transition-all shadow-[0_4px_12px_rgba(37,99,235,0.2)]">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                        Deploy New Agent
+                    </button>
+</div>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter mb-8">
+<!-- Metric 1 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 relative overflow-hidden group cursor-default">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-colors"></div>
+<span class="font-label-mono text-label-mono text-text-muted uppercase">Active Agents</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-text-primary text-3xl">3</span>
+<span class="font-body-sm text-body-sm text-success bg-success/10 px-1.5 py-0.5 rounded font-medium">+1 today</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 cursor-default">
+<span class="font-label-mono text-label-mono text-text-muted uppercase">Msgs Handled (24h)</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-text-primary text-3xl">1,247</span>
+<span class="font-body-sm text-body-sm text-text-muted">msgs</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 cursor-default">
+<span class="font-label-mono text-label-mono text-text-muted uppercase">Bookings (Week)</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-text-primary text-3xl">89</span>
+<span class="font-body-sm text-body-sm text-success bg-success/10 px-1.5 py-0.5 rounded font-medium">+12%</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 cursor-default">
+<span class="font-label-mono text-label-mono text-text-muted uppercase">Time Saved (Month)</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-text-primary text-3xl">47h</span>
+<span class="font-body-sm text-body-sm text-text-muted">approx</span>
+</div>
+</div>
+</div>
+<!-- Bento Layout: Agents & Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Agent Cards List (Spans 2 cols) -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Deployed Agents</h3>
+<a class="font-label-mono text-label-mono text-primary hover:text-primary-fixed transition-colors flex items-center gap-1" href="#">View All <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
+</div>
+<!-- Agent 1 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-default">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-[#25D366]/10 flex items-center justify-center shrink-0 border border-[#25D366]/20 relative">
+<img alt="WhatsApp" class="w-5 h-5 opacity-80" data-alt="A clean, simple WhatsApp logo icon indicating the platform for the agent, set against a dark premium interface background with subtle green tints." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYO5W7VHQ6tTVkyw4IN-uCj37UZo2RqDggG5RXEfBcJNkfNV3Uxv6D-gwb4A0vW3ZLTKdTQx8bztqnSfVYxvYWhKcnLqadFkHMushLCpPeL___xfWgPkt1uwYbyx_MME8RCkYmm4bdz1R1mTSWa2BfjUdYBP50FeuYaRLD-QRMu4WpQoGJy91kyipFimzolE8-DIAijKUBGPjQ2gUR0segiQt_O6PGEOc-7fT-IXmWt8SpeqQAL2X6Jgs62g7uefhFEefivcch-iY"/>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-success rounded-full border border-surface"></div>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-primary">WhatsApp Booking Agent</h4>
+<p class="font-body-sm text-body-sm text-text-muted flex items-center gap-1.5">CoolFix HVAC • <span class="relative flex h-2 w-2 items-center justify-center"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span></span> <span class="font-label-mono text-success">LIVE</span></p>
+<div class="flex gap-4 mt-2">
+<span class="font-label-mono text-label-mono text-text-muted">143 msgs</span>
+<span class="font-label-mono text-label-mono text-text-muted">12 bookings</span>
+<span class="font-label-mono text-label-mono text-text-muted">1.2s avg res</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded border border-border text-text-muted hover:text-text-primary hover:bg-surface-container-low transition-colors" title="View Logs"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-2 rounded border border-border text-text-muted hover:text-text-primary hover:bg-surface-container-low transition-colors" title="Train"><span class="material-symbols-outlined text-[18px]">model_training</span></button>
+<button class="p-2 rounded border border-warning/30 text-warning hover:bg-warning/10 transition-colors" title="Pause"><span class="material-symbols-outlined text-[18px]">pause</span></button>
+</div>
+</div>
+<!-- Agent 2 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-default">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 relative">
+<span class="material-symbols-outlined text-primary text-[20px]">restaurant_menu</span>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-success rounded-full border border-surface"></div>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-primary">Restaurant Order Agent</h4>
+<p class="font-body-sm text-body-sm text-text-muted flex items-center gap-1.5">Ember Fine Dining • <span class="relative flex h-2 w-2 items-center justify-center"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span></span> <span class="font-label-mono text-success">LIVE</span></p>
+<div class="flex gap-4 mt-2">
+<span class="font-label-mono text-label-mono text-text-muted">89 msgs</span>
+<span class="font-label-mono text-label-mono text-text-muted">34 orders</span>
+<span class="font-label-mono text-label-mono text-text-muted">0.8s avg res</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded border border-border text-text-muted hover:text-text-primary hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-2 rounded border border-border text-text-muted hover:text-text-primary hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[18px]">model_training</span></button>
+<button class="p-2 rounded border border-warning/30 text-warning hover:bg-warning/10 transition-colors"><span class="material-symbols-outlined text-[18px]">pause</span></button>
+</div>
+</div>
+<!-- Agent 3 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 opacity-70 grayscale-[20%] cursor-default">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 border border-border relative">
+<span class="material-symbols-outlined text-text-muted text-[20px]">real_estate_agent</span>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-warning rounded-full border border-surface"></div>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-text-primary">Lead Gen Agent</h4>
+<p class="font-body-sm text-body-sm text-text-muted">PropertyPro Malaysia • <span class="font-label-mono text-warning">IDLE</span></p>
+<div class="flex gap-4 mt-2">
+<span class="font-label-mono text-label-mono text-text-muted">0 msgs</span>
+<span class="font-label-mono text-label-mono text-text-muted">0 leads</span>
+<span class="font-label-mono text-label-mono text-text-muted">Last active 2h ago</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded border border-border text-text-muted hover:text-text-primary hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-2 rounded border border-border text-text-muted hover:text-text-primary hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[18px]">model_training</span></button>
+<button class="p-2 rounded border border-success/30 text-success hover:bg-success/10 transition-colors" title="Activate"><span class="material-symbols-outlined text-[18px]">play_arrow</span></button>
+</div>
+</div>
+</div>
+<!-- Live Activity Feed -->
+<div class="lg:col-span-1 flex flex-col h-[400px] lg:h-auto">
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-2">Live Activity</h3>
+<div class="glass-panel rounded-xl flex-1 p-4 overflow-y-auto space-y-4">
+<!-- Log Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-px before:bg-border last:before:hidden slide-in-item">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container flex items-center justify-center border border-border z-10">
+<div class="w-1.5 h-1.5 bg-success rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-text-primary">WhatsApp Agent confirmed booking <span class="font-label-mono text-primary">#1247</span> for Ahmad.</p>
+<span class="font-label-mono text-label-mono text-text-muted mt-1">2 mins ago</span>
+</div>
+</div>
+<!-- Log Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-px before:bg-border last:before:hidden slide-in-item">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container flex items-center justify-center border border-border z-10">
+<div class="w-1.5 h-1.5 bg-success rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-text-primary">Restaurant Agent processed order <span class="font-label-mono text-primary">#E-089</span>.</p>
+<span class="font-label-mono text-label-mono text-text-muted mt-1">14 mins ago</span>
+</div>
+</div>
+<!-- Log Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-px before:bg-border last:before:hidden slide-in-item">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container flex items-center justify-center border border-border z-10">
+<div class="w-1.5 h-1.5 bg-warning rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-text-primary">Lead Gen Agent transitioned to <span class="font-label-mono text-warning">IDLE</span> state due to inactivity.</p>
+<span class="font-label-mono text-label-mono text-text-muted mt-1">2 hours ago</span>
+</div>
+</div>
+<!-- Log Item -->
+<div class="relative pl-6 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-px before:bg-border last:before:hidden slide-in-item">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container flex items-center justify-center border border-border z-10">
+<div class="w-1.5 h-1.5 bg-primary rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-text-primary">Knowledge base <span class="font-label-mono">Ember_Menu_V2</span> synced successfully.</p>
+<span class="font-label-mono text-label-mono text-text-muted mt-1">4 hours ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile BottomNavBar (Requirement implementation) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface-container-highest border-t border-border shadow-lg z-50">
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-label-caps-mobile mt-1">Command</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted active:bg-surface-bright rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps-mobile mt-1">Agents</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted active:bg-surface-bright rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-caps text-label-caps-mobile mt-1">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted active:bg-surface-bright rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-caps text-label-caps-mobile mt-1">Alerts</span>
+</a>
+</nav>
+<script>
+        // Simple script to update time for realism
+        function updateTime() {
+            const now = new Date();
+            const options = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            const el = document.getElementById('live-datetime');
+            if(el) el.textContent = now.toLocaleDateString('en-US', options).replace(',', ' •');
+        }
+        setInterval(updateTime, 60000);
+        updateTime();
+    </script>
+</body></html>

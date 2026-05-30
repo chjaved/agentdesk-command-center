@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentDesk - Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#690005",
+                    "text-muted": "#94A3B8",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed": "#23005c",
+                    "secondary-fixed": "#e9ddff",
+                    "surface-dim": "#0e1322",
+                    "secondary": "#d0bcff",
+                    "primary-fixed": "#dbe1ff",
+                    "outline": "#8d90a0",
+                    "on-surface": "#dee1f7",
+                    "on-secondary": "#3c0091",
+                    "tertiary-fixed": "#ffdbcd",
+                    "inverse-on-surface": "#2b3040",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "on-surface-variant": "#c3c6d7",
+                    "surface-container-low": "#161b2b",
+                    "tertiary-container": "#bc4800",
+                    "surface-container-high": "#25293a",
+                    "surface-tint": "#b4c5ff",
+                    "on-primary-container": "#eeefff",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-container-highest": "#2f3445",
+                    "on-error-container": "#ffdad6",
+                    "warning": "#F59E0B",
+                    "error": "#ffb4ab",
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "accent-lime": "#E4F222",
+                    "surface-container": "#1a1f2f",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "success": "#10B981",
+                    "surface-container-lowest": "#090e1c",
+                    "background": "#0e1322",
+                    "primary-container": "#2563eb",
+                    "surface": "#111827",
+                    "text-primary": "#F8FAFC",
+                    "inverse-surface": "#dee1f7",
+                    "on-primary-fixed": "#00174b",
+                    "tertiary": "#ffb596",
+                    "on-primary": "#002a78",
+                    "outline-variant": "#434655",
+                    "secondary-container": "#571bc1",
+                    "on-tertiary-fixed": "#360f00",
+                    "primary": "#b4c5ff",
+                    "on-tertiary": "#581e00",
+                    "on-background": "#dee1f7",
+                    "surface-variant": "#2f3445",
+                    "on-tertiary-container": "#ffede6",
+                    "inverse-primary": "#0053db",
+                    "surface-bright": "#343949",
+                    "on-secondary-container": "#c4abff",
+                    "border": "#1E293B"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "panel-padding": "20px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "stack-gap": "8px",
+                    "margin-desktop": "32px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "label-mono": ["JetBrains Mono"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+          font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Chart.js for rendering graphs -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Web Only) -->
+<aside class="hidden md:flex flex-col h-screen py-panel-padding bg-surface-container-lowest border-r border-border fixed left-0 w-[260px] z-40">
+<div class="px-gutter mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AgentDesk</h1>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Mission Control</p>
+</div>
+<button class="mx-gutter mb-6 bg-primary-container text-on-primary-container font-label-caps text-label-caps py-2 px-4 rounded hover:bg-primary-container/90 transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            Deploy Agent
+        </button>
+<nav class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-3 py-2 text-text-muted font-body-md hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Command
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-text-muted font-body-md hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+                Agents
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-text-muted font-body-md hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+                Logs
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2 text-primary font-bold border-r-2 border-primary bg-surface-container-low scale-[0.98] transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px] fill-icon">query_stats</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-text-muted font-body-md hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto px-2 border-t border-border pt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-text-muted font-body-md hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-text-muted font-body-md hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+                Account
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col md:ml-[260px] min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop w-full z-30 sticky top-0 bg-surface-container/90 backdrop-blur-md border-b border-border">
+<div class="flex items-center gap-4">
+<span class="md:hidden font-headline-md text-headline-md font-bold text-primary">AgentDesk</span>
+<!-- Left aligned search in nav as requested by JSON, but adapted for minimal dashboard feel -->
+<div class="hidden md:flex items-center bg-surface-container-low border border-border rounded px-3 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-text-muted text-[18px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm text-on-surface w-48 placeholder:text-text-muted ml-2 p-0" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Analytics Content -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop overflow-y-auto pb-24 md:pb-margin-desktop">
+<!-- Page Header & Date Picker -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Performance Overview</h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Metrics across all deployed agents</p>
+</div>
+<div class="flex items-center bg-surface border border-border rounded p-1">
+<button class="px-3 py-1 font-body-sm text-body-sm text-text-muted hover:text-text-primary transition-colors">7D</button>
+<button class="px-3 py-1 font-body-sm text-body-sm bg-surface-container-high text-primary rounded shadow-sm">30D</button>
+<button class="px-3 py-1 font-body-sm text-body-sm text-text-muted hover:text-text-primary transition-colors">3M</button>
+<button class="px-3 py-1 font-body-sm text-body-sm text-text-muted hover:text-text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                        Custom
+                    </button>
+</div>
+</div>
+<!-- Top Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-gutter">
+<!-- Metric 1 -->
+<div class="bg-surface border border-border rounded-lg p-4 hover:border-surface-bright transition-colors group relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-body-sm text-body-sm text-text-muted">Total Messages</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">forum</span>
+</div>
+<div class="font-headline-md text-headline-md text-text-primary">124,592</div>
+<div class="flex items-center gap-1 mt-1 text-success font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                        14.2%
+                    </div>
+<!-- Sparkline Placeholder -->
+<div class="absolute bottom-0 left-0 w-full h-10 opacity-30 group-hover:opacity-60 transition-opacity">
+<canvas id="spark1"></canvas>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface border border-border rounded-lg p-4 hover:border-surface-bright transition-colors group relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-body-sm text-body-sm text-text-muted">Successful Bookings</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">event_available</span>
+</div>
+<div class="font-headline-md text-headline-md text-text-primary">8,241</div>
+<div class="flex items-center gap-1 mt-1 text-success font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                        8.7%
+                    </div>
+<div class="absolute bottom-0 left-0 w-full h-10 opacity-30 group-hover:opacity-60 transition-opacity">
+<canvas id="spark2"></canvas>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface border border-border rounded-lg p-4 hover:border-surface-bright transition-colors group relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-body-sm text-body-sm text-text-muted">Avg Response Time</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">timer</span>
+</div>
+<div class="font-headline-md text-headline-md text-text-primary">1.2s</div>
+<div class="flex items-center gap-1 mt-1 text-warning font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                        0.4s
+                    </div>
+<div class="absolute bottom-0 left-0 w-full h-10 opacity-30 group-hover:opacity-60 transition-opacity">
+<canvas id="spark3"></canvas>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface border border-border rounded-lg p-4 hover:border-surface-bright transition-colors group relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-body-sm text-body-sm text-text-muted">Agent Utilization</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">memory</span>
+</div>
+<div class="font-headline-md text-headline-md text-text-primary">76%</div>
+<div class="flex items-center gap-1 mt-1 text-text-muted font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[14px]">horizontal_rule</span>
+                        Stable
+                    </div>
+<div class="absolute bottom-0 left-0 w-full h-10 opacity-30 group-hover:opacity-60 transition-opacity">
+<canvas id="spark4"></canvas>
+</div>
+</div>
+</div>
+<!-- Main Chart Area -->
+<div class="bg-surface border border-border rounded-lg p-gutter mb-gutter">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Messages Handled Over Time</h3>
+<button class="text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="w-full h-[300px] relative">
+<canvas id="mainChart"></canvas>
+</div>
+</div>
+<!-- Bottom Row: 2 Cols -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter mb-gutter">
+<!-- Bar Chart: Top Agents -->
+<div class="bg-surface border border-border rounded-lg p-gutter">
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-6">Top Performing Agents</h3>
+<div class="w-full h-[250px] relative">
+<canvas id="barChart"></canvas>
+</div>
+</div>
+<!-- Donut Chart: Booking Success -->
+<div class="bg-surface border border-border rounded-lg p-gutter">
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-6">Booking Success Rate</h3>
+<div class="w-full h-[250px] relative flex justify-center">
+<canvas id="donutChart"></canvas>
+<!-- Centered Stat -->
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="font-headline-md text-headline-md text-text-primary">89%</span>
+<span class="font-body-sm text-body-sm text-text-muted">Confirmed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface border border-border rounded-lg overflow-hidden">
+<div class="p-gutter border-b border-border flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Recent Bookings</h3>
+<button class="text-primary font-body-sm text-body-sm hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border">
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted font-semibold">Customer</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted font-semibold">Agent</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted font-semibold">Service</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted font-semibold">Time</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted font-semibold">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="border-b border-border hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-on-surface">Sarah Jenkins</td>
+<td class="py-3 px-4 text-text-muted font-label-mono text-label-mono">Alpha-01</td>
+<td class="py-3 px-4 text-on-surface">Consultation Call</td>
+<td class="py-3 px-4 text-text-muted">10:45 AM</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-success/10 text-success border border-success/20 font-label-mono text-label-mono">Confirmed</span>
+</td>
+</tr>
+<tr class="border-b border-border hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-on-surface">Michael Chang</td>
+<td class="py-3 px-4 text-text-muted font-label-mono text-label-mono">Beta-03</td>
+<td class="py-3 px-4 text-on-surface">Support Ticket</td>
+<td class="py-3 px-4 text-text-muted">09:12 AM</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-warning/10 text-warning border border-warning/20 font-label-mono text-label-mono">Pending</span>
+</td>
+</tr>
+<tr class="border-b border-border hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-on-surface">Emma Rodriguez</td>
+<td class="py-3 px-4 text-text-muted font-label-mono text-label-mono">Alpha-02</td>
+<td class="py-3 px-4 text-on-surface">Product Demo</td>
+<td class="py-3 px-4 text-text-muted">Yesterday</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-error/10 text-error border border-error/20 font-label-mono text-label-mono">Failed</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-on-surface">David Kim</td>
+<td class="py-3 px-4 text-text-muted font-label-mono text-label-mono">Gamma-01</td>
+<td class="py-3 px-4 text-on-surface">Onboarding</td>
+<td class="py-3 px-4 text-text-muted">Yesterday</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-success/10 text-success border border-success/20 font-label-mono text-label-mono">Confirmed</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface-container-highest border-t border-border shadow-lg z-50">
+<a class="flex flex-col items-center justify-center text-text-muted hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">smart_toy</span>
+<span class="font-label-caps text-label-caps mt-1">Agents</span>
+</a>
+<!-- Active -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-xl px-3 py-1 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-[24px] fill-icon">analytics</span>
+<span class="font-label-caps text-label-caps mt-1">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-muted hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="font-label-caps text-label-caps mt-1">Alerts</span>
+</a>
+</nav>
+<!-- Chart Configuration Script -->
+<script>
+        // Common Chart.js defaults for dark theme
+        Chart.defaults.color = '#94A3B8';
+        Chart.defaults.font.family = 'Inter, sans-serif';
+        const gridColor = '#1E293B';
+
+        // Sparklines
+        const sparkOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            scales: { x: { display: false }, y: { display: false } },
+            elements: { point: { radius: 0 }, line: { tension: 0.4, borderWidth: 2 } }
+        };
+
+        new Chart(document.getElementById('spark1'), {
+            type: 'line',
+            data: { labels: ['1','2','3','4','5','6','7'], datasets: [{ data: [10, 25, 20, 45, 30, 50, 65], borderColor: '#10B981' }] },
+            options: sparkOptions
+        });
+        new Chart(document.getElementById('spark2'), {
+            type: 'line',
+            data: { labels: ['1','2','3','4','5','6','7'], datasets: [{ data: [5, 15, 10, 25, 20, 35, 45], borderColor: '#10B981' }] },
+            options: sparkOptions
+        });
+        new Chart(document.getElementById('spark3'), {
+            type: 'line',
+            data: { labels: ['1','2','3','4','5','6','7'], datasets: [{ data: [1.5, 1.4, 1.6, 1.3, 1.2, 1.4, 1.2], borderColor: '#F59E0B' }] },
+            options: sparkOptions
+        });
+        new Chart(document.getElementById('spark4'), {
+            type: 'line',
+            data: { labels: ['1','2','3','4','5','6','7'], datasets: [{ data: [70, 75, 72, 78, 76, 75, 76], borderColor: '#94A3B8' }] },
+            options: sparkOptions
+        });
+
+        // Main Chart: Messages vs Bookings
+        const ctxMain = document.getElementById('mainChart').getContext('2d');
+        
+        // Gradient for Messages
+        const gradientBlue = ctxMain.createLinearGradient(0, 0, 0, 300);
+        gradientBlue.addColorStop(0, 'rgba(180, 197, 255, 0.2)');
+        gradientBlue.addColorStop(1, 'rgba(180, 197, 255, 0)');
+
+        new Chart(ctxMain, {
+            type: 'line',
+            data: {
+                labels: ['1', '5', '10', '15', '20', '25', '30'],
+                datasets: [
+                    {
+                        label: 'Messages',
+                        data: [1200, 1900, 1500, 2200, 1800, 2500, 2800],
+                        borderColor: '#b4c5ff', // primary
+                        backgroundColor: gradientBlue,
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4
+                    },
+                    {
+                        label: 'Bookings',
+                        data: [100, 150, 120, 200, 180, 220, 250],
+                        borderColor: '#10B981', // success
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        borderDash: [5, 5]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: { usePointStyle: true, boxWidth: 6 }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                        titleColor: '#F8FAFC',
+                        bodyColor: '#dee1f7',
+                        borderColor: '#1E293B',
+                        borderWidth: 1,
+                        padding: 12,
+                        bodyFont: { family: 'JetBrains Mono', size: 12 }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: gridColor, drawBorder: false },
+                        ticks: { font: { family: 'JetBrains Mono', size: 10 } }
+                    },
+                    y: {
+                        grid: { color: gridColor, drawBorder: false },
+                        ticks: { font: { family: 'JetBrains Mono', size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // Bar Chart
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Alpha-01', 'Beta-03', 'Gamma-02', 'Delta-01'],
+                datasets: [{
+                    label: 'Bookings Closed',
+                    data: [145, 112, 85, 64],
+                    backgroundColor: '#2563eb', // primary-container
+                    borderRadius: 4,
+                    barThickness: 24
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: gridColor, drawBorder: false }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } },
+                    y: { grid: { display: false, drawBorder: false }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } }
+                }
+            }
+        });
+
+        // Donut Chart
+        new Chart(document.getElementById('donutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Confirmed', 'Pending', 'Failed'],
+                datasets: [{
+                    data: [89, 8, 3],
+                    backgroundColor: ['#10B981', '#F59E0B', '#ffb4ab'], // success, warning, error
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '75%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { usePointStyle: true, padding: 20, font: { size: 12 } }
+                    }
+                }
+            }
+        });
+    </script>
+</body></html>
